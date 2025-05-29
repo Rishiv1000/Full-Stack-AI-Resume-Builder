@@ -13,7 +13,7 @@ app.use(cookieParser());
 
 
 const corsOptions = {
-    origin: [process.env.ALLOWED_SITE, 'https://full-stack-ai-resume-builder-adlc.vercel.app/', 'https://full-stack-ai-resume-builder-adlc.vercel.app/','http://localhost:5173'],
+    origin: 'https://full-stack-ai-resume-builder-adlc.vercel.app/',
     credentials: true
 };
 
