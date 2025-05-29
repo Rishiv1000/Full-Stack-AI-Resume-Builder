@@ -7,15 +7,15 @@ import {
   updateResume,
   removeResume,
 } from "../controller/resume.controller.js";
-import { isUserAvailable } from "../middleware/auth.js";
+// import { isUserAvailable } from "../middleware/auth.js";
 
 const router = Router();
 
 router.get("/", start);
-router.post("/createResume", isUserAvailable, createResume);
-router.get("/getAllResume", isUserAvailable, getALLResume);
-router.get("/getResume", isUserAvailable, getResume);
-router.put("/updateResume", isUserAvailable, updateResume);
-router.delete("/removeResume", isUserAvailable, removeResume);
+router.post("/createResume", createResume);
+router.get("/getAllResume",  getALLResume);
+router.get("/getResume", getResume);
+router.put("/updateResume", updateResume);
+router.delete("/removeResume", removeResume);
 
 export default router;
