@@ -4,12 +4,24 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 
 const start = async (req, res) => {
-  if (req.user) {
-    return res.status(200).json(new ApiResponse(200, req.user, "User Found"));
-  } else {
-    return res.status(404).json(new ApiResponse(404, null, "User Not Found"));
+  const { email } = req.query; // Pass ?email=abc@example.com in frontend
+
+  if (!email) {
+    return res.status(400).json(new ApiError(400, "Email is required."));
+  }
+
+  try {
+    const user = await User.findOne({ email }).select("-password");
+    if (!user) {
+      return res.status(404).json(new ApiError(404, "User not found."));
+    }
+
+    return res.status(200).json(new ApiResponse(200, user, "User found."));
+  } catch (err) {
+    return res.status(500).json(new ApiError(500, "Server error.", [], err.stack));
   }
 };
+
 
 const registerUser = async (req, res) => {
   console.log("Registration Started");
