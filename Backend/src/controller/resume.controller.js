@@ -1,11 +1,24 @@
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import Resume from "../models/resume.model.js";
-
+// GET /api/users/?email=abc@example.com
 const start = async (req, res) => {
-  return res
-    .status(200)
-    .json(new ApiResponse(200, null, "Welcome to Resume Builder API"));
+  const { email } = req.query;
+
+  if (!email) {
+    return res.status(400).json(new ApiError(400, "Email is required."));
+  }
+
+  try {
+    const user = await User.findOne({ email }).select("-password");
+    if (!user) {
+      return res.status(404).json(new ApiError(404, "User not found."));
+    }
+
+    return res.status(200).json(new ApiResponse(200, user, "User found."));
+  } catch (err) {
+    return res.status(500).json(new ApiError(500, "Server error.", [], err.stack));
+  }
 };
 
 const createResume = async (req, res) => {
