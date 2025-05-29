@@ -9,9 +9,11 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-const startUser = async () => {
+const startUser = async (email) => {
   try {
-    const response = await axiosInstance.get("users/");
+    const response = await axiosInstance.get("users/", {
+      params: { email },
+    });
     return response.data;
   } catch (error) {
     throw new Error(
