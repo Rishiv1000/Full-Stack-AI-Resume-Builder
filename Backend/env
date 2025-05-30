@@ -1,0 +1,7 @@
+# MONGODB_URI=mongodb://localhost:27017/ai-resume
+MONGODB_URI=mongodb+srv://rishiv1000:123@cluster0.tnesoeg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+PORT=5001
+JWT_SECRET_KEY="secret"
+JWT_SECRET_EXPIRES_IN="1d"
+NODE_ENV=Dev
+ALLOWED_SITE=http://localhost:5173
