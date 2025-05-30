@@ -11,15 +11,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-
+// Allow all origins dynamically
 const corsOptions = {
-    origin: [process.env.ALLOWED_SITE],
-    credentials: true
+  origin: function (origin, callback) {
+    callback(null, origin || '*');  // Reflect the origin back (for any origin)
+  },
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Pre-flight requests
 
+// Routes
 app.use("/api/users", userRouter);
 app.use("/api/resumes", resumeRouter);
 
 export default app;
+
+
+// // [process.env.ALLOWED_SITE]
+// const corsOptions = {
+//     origin:"http://localhost:5173",
+//     credentials: true
+// };
